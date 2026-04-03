@@ -19,7 +19,7 @@ const links = [
     icon: <Github size={22} />,
     label: 'GitHub',
     value: 'github.com/gunjan',
-    href: 'https://github.com/your-username',
+    href: 'https://github.com/gpurohit04',
   },
   {
     icon: <Phone size={22} />,
