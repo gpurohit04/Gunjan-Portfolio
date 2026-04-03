@@ -1,0 +1,112 @@
+.contact__location {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-xs);
+  color: var(--text-muted);
+  font-size: var(--fs-sm);
+  margin-top: var(--space-md);
+  padding: 0.3rem 0.8rem;
+  background: var(--bg-glass);
+  border: 1px solid var(--border-glass);
+  border-radius: var(--radius-full);
+}
+
+.contact__links {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: var(--space-lg);
+  margin-top: var(--space-2xl);
+}
+
+.contact__card {
+  display: flex;
+  align-items: center;
+  gap: var(--space-lg);
+  padding: var(--space-xl);
+  cursor: pointer;
+  text-decoration: none;
+  transition: border-color 0.3s, box-shadow 0.3s;
+}
+
+.contact__card:hover {
+  border-color: var(--accent);
+  box-shadow:
+    0 0 20px var(--accent-glow),
+    inset 0 0 20px rgba(108, 92, 231, 0.03);
+}
+
+.contact__card-icon {
+  width: 48px;
+  height: 48px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: var(--radius-md);
+  background: rgba(108, 92, 231, 0.1);
+  color: var(--accent-light);
+  border: 1px solid rgba(108, 92, 231, 0.15);
+  flex-shrink: 0;
+  transition: all var(--transition-base);
+}
+
+.contact__card:hover .contact__card-icon {
+  background: rgba(108, 92, 231, 0.2);
+  box-shadow: 0 0 20px var(--accent-glow);
+}
+
+.contact__card-info {
+  flex: 1;
+  min-width: 0;
+  overflow: hidden;
+}
+
+.contact__card-label {
+  display: block;
+  font-size: var(--fs-xs);
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  color: var(--text-muted);
+  margin-bottom: 2px;
+}
+
+.contact__card-value {
+  font-size: var(--fs-sm);
+  font-weight: 500;
+  color: var(--text-primary);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  display: block;
+}
+
+.contact__card-arrow {
+  color: var(--text-muted);
+  transition: all var(--transition-fast);
+  flex-shrink: 0;
+}
+
+.contact__card:hover .contact__card-arrow {
+  color: var(--accent-light);
+  animation: arrowBounce 0.6s ease infinite;
+}
+
+@keyframes arrowBounce {
+  0%, 100% { transform: translate(0, 0); }
+  50% { transform: translate(3px, -3px); }
+}
+
+/* Footer */
+.footer {
+  margin-top: var(--space-5xl);
+  padding-top: var(--space-2xl);
+  border-top: 1px solid var(--border-glass);
+  text-align: center;
+  font-size: var(--fs-sm);
+  color: var(--text-muted);
+}
+
+.footer__copy {
+  margin-top: var(--space-xs);
+  font-size: var(--fs-xs);
+}
