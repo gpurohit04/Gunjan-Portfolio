@@ -1,0 +1,39 @@
+.s3d {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+}
+
+.s3d canvas {
+  display: block;
+}
+
+.s3d-label {
+  position: absolute;
+  top: 0;
+  left: 0;
+  padding-top: 10px;
+  pointer-events: none;
+  will-change: transform;
+}
+
+/* each line centred on the projected anchor */
+.s3d-label > * {
+  display: block;
+  width: max-content;
+  transform: translateX(-50%);
+  text-align: center;
+}
+
+.s3d-label__title {
+  font-size: 14px;
+  font-weight: 600;
+  letter-spacing: -0.01em;
+  color: var(--ink);
+}
+
+.s3d-label__sub {
+  font-family: var(--mono);
+  font-size: 11px;
+  color: var(--ink-3);
+}
