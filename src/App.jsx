@@ -1,25 +1,23 @@
-import Navbar from './components/Navbar';
+import Nav from './components/Nav';
 import Hero from './components/Hero';
-import About from './components/About';
-import Skills from './components/Skills';
-import Projects from './components/Projects';
-import Experience from './components/Experience';
-import Contact from './components/Contact';
+import CaseStudies from './components/CaseStudies';
+import { About, Contact, Experience } from './components/Closing';
+import { useReveal, useSmoothScroll } from './lib/motion';
 
 export default function App() {
+  useReveal();
+  useSmoothScroll();
   return (
     <>
-      {/* Background glow effects */}
-      <div className="bg-glow bg-glow--purple" />
-      <div className="bg-glow bg-glow--teal" />
-
-      <Navbar />
-      <main>
+      <a className="skip" href="#main">
+        Skip to content
+      </a>
+      <Nav />
+      <main id="main">
         <Hero />
-        <About />
-        <Skills />
-        <Projects />
+        <CaseStudies />
         <Experience />
+        <About />
         <Contact />
       </main>
     </>

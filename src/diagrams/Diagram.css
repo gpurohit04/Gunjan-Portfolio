@@ -1,0 +1,194 @@
+.dg {
+  margin: 0;
+}
+
+.dg-plate {
+  position: relative;
+  background: var(--paper-2);
+  border: 1px solid var(--rule);
+  border-radius: 2px;
+  padding: clamp(16px, 3vw, 40px);
+}
+
+.dg-svg {
+  width: 100%;
+  height: auto;
+  overflow: visible;
+}
+
+.dg-svg--tall {
+  display: none;
+  max-width: 420px;
+  margin-inline: auto;
+}
+
+@media (max-width: 719px) {
+  .dg-svg--wide {
+    display: none;
+  }
+  .dg-svg--tall {
+    display: block;
+  }
+}
+
+/* Nodes */
+.dg-node rect {
+  fill: var(--paper);
+  stroke: var(--ink);
+  stroke-width: 1;
+}
+
+.dg-node--external rect {
+  fill: transparent;
+  stroke: var(--ink-3);
+  stroke-dasharray: 3 3;
+}
+
+.dg-detail {
+  stroke: var(--ink);
+  stroke-width: 1;
+}
+
+.dg-node .dg-mine {
+  fill: var(--signal);
+  stroke: none;
+}
+
+.dg-title {
+  font-family: var(--sans);
+  font-size: 15px;
+  font-weight: 600;
+  letter-spacing: -0.01em;
+  fill: var(--ink);
+}
+
+.dg-sub {
+  font-family: var(--mono);
+  font-size: 11px;
+  fill: var(--ink-3);
+}
+
+/* Groups */
+.dg-group rect {
+  fill: none;
+  stroke: var(--rule-strong);
+  stroke-dasharray: 4 4;
+}
+
+.dg-group text {
+  font-family: var(--mono);
+  font-size: 10.5px;
+  font-weight: 500;
+  letter-spacing: 0.08em;
+  fill: var(--ink-3);
+}
+
+/* Edges */
+.dg-edge path {
+  fill: none;
+  stroke: var(--ink-2);
+  stroke-width: 1;
+}
+
+.dg-edge--signal path {
+  stroke: var(--signal);
+  stroke-width: 1.5;
+}
+
+.dg-edge--dashed path {
+  stroke-dasharray: 4 3;
+}
+
+.dg-arrowhead {
+  fill: var(--ink-2);
+}
+
+.dg-arrowhead--signal {
+  fill: var(--signal);
+}
+
+.dg-edge text {
+  font-family: var(--mono);
+  font-size: 11px;
+  fill: var(--ink-2);
+  paint-order: stroke;
+  stroke: var(--paper-2);
+  stroke-width: 5px;
+  stroke-linejoin: round;
+}
+
+.dg-edge--signal text {
+  fill: var(--signal);
+}
+
+/* Draw-in: solid edges trace once when the figure enters the viewport */
+.dg .dg-edge path[pathLength] {
+  stroke-dasharray: 1;
+  stroke-dashoffset: 1;
+}
+
+.dg .dg-edge text,
+.dg .dg-edge--dashed path,
+.dg .dg-arrowhead {
+  opacity: 0;
+}
+
+.dg.is-drawn .dg-edge path[pathLength] {
+  stroke-dashoffset: 0;
+  transition: stroke-dashoffset 700ms var(--ease-out);
+}
+
+.dg.is-drawn .dg-edge text,
+.dg.is-drawn .dg-edge--dashed path,
+.dg.is-drawn .dg-arrowhead {
+  opacity: 1;
+  transition: opacity 300ms 500ms;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .dg .dg-edge path[pathLength] {
+    stroke-dashoffset: 0;
+  }
+  .dg .dg-edge text,
+  .dg .dg-edge--dashed path,
+  .dg .dg-arrowhead {
+    opacity: 1;
+  }
+  .dg.is-drawn * {
+    transition: none !important;
+  }
+}
+
+.dg-caption {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  gap: var(--s-3);
+  align-items: baseline;
+  margin-top: var(--s-3);
+  font-size: var(--t-small);
+  line-height: 1.5;
+  color: var(--ink-2);
+  max-width: 80ch;
+}
+
+@media (max-width: 599px) {
+  .dg-caption {
+    grid-template-columns: 1fr;
+    gap: var(--s-1);
+  }
+}
+
+/* Flowing requests */
+.dg-dot {
+  fill: var(--ink-2);
+}
+
+.dg-dot--signal {
+  fill: var(--signal);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .dg-dot {
+    display: none;
+  }
+}

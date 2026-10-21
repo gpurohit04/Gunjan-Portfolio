@@ -1,0 +1,193 @@
+.sf-stage {
+  position: relative;
+}
+
+/* The 2D diagram is the first paint and the fallback; the 3D scene fades in over it. */
+.sf-2d .dg-plate {
+  border-bottom: 0;
+}
+
+.sf-3d {
+  position: absolute;
+  inset: 0;
+  opacity: 0;
+  transition: opacity 600ms var(--ease-out);
+  background: var(--paper-2);
+  border: 1px solid var(--rule);
+  border-bottom: 0;
+}
+
+.sf--3d .sf-3d {
+  opacity: 1;
+}
+
+@media (min-width: 900px) {
+  .sf-2d .dg-plate {
+    min-height: 440px;
+    display: flex;
+    align-items: center;
+  }
+}
+
+/* 2D live parts */
+.dg-node rect.sf-bar {
+  fill: var(--paper-2);
+  stroke: var(--rule-strong);
+}
+
+.dg-node rect.sf-bar-fill {
+  fill: var(--signal);
+  transition: width 120ms linear;
+}
+
+.dg-node rect.sf-worker {
+  stroke-width: 1;
+  transition: fill 200ms, stroke 200ms;
+}
+
+.dg-node rect.sf-worker--off {
+  fill: none;
+  stroke: var(--rule-strong);
+  stroke-dasharray: 3 3;
+}
+
+.dg-node rect.sf-worker--booting {
+  fill: var(--signal-tint);
+  stroke: var(--signal);
+}
+
+.dg-node rect.sf-worker--idle {
+  fill: var(--paper);
+  stroke: var(--ink);
+}
+
+.dg-node rect.sf-worker--busy {
+  fill: var(--ink);
+  stroke: var(--ink);
+}
+
+/* Console strip under the figure */
+.sf-console {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--s-5);
+  flex-wrap: wrap;
+  padding: var(--s-4) var(--s-5);
+  background: var(--paper);
+  border: 1px solid var(--rule);
+  border-top: 1px solid var(--ink);
+}
+
+.sf-readouts {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(96px, auto));
+  gap: var(--s-6);
+}
+
+.sf-readouts dd {
+  margin: 4px 0 0;
+  font-family: var(--mono);
+  font-size: 1.5rem;
+  font-weight: 500;
+  font-variant-numeric: tabular-nums;
+  letter-spacing: -0.02em;
+  line-height: 1;
+}
+
+.sf-unit {
+  font-size: 0.875rem;
+  color: var(--ink-3);
+  margin-left: 2px;
+}
+
+.sf-boot {
+  font-size: 0.875rem;
+  color: var(--signal);
+  margin-left: 8px;
+}
+
+.sf-burst {
+  min-width: 13.5rem;
+  justify-content: center;
+}
+
+.sf-note {
+  font-family: var(--mono);
+  font-size: var(--t-label);
+  color: var(--ink-3);
+  margin-top: calc(var(--s-3) * -1);
+}
+
+@media (max-width: 999px) {
+  .sf-note {
+    display: none;
+  }
+}
+
+.sf-caption {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  gap: var(--s-3);
+  align-items: baseline;
+  margin-top: var(--s-3);
+  font-size: var(--t-small);
+  color: var(--ink-2);
+  max-width: 80ch;
+}
+
+/* Wide screens: readouts become a side panel so the control sits above the fold */
+@media (min-width: 1000px) {
+  .sf {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) 280px;
+  }
+  .sf-stage,
+  .sf-console {
+    grid-row: 1;
+  }
+  .sf-2d .dg-plate,
+  .sf-3d {
+    border-bottom: 1px solid var(--rule);
+    border-right: 0;
+  }
+  .sf-console {
+    flex-direction: column;
+    align-items: stretch;
+    justify-content: flex-start;
+    gap: var(--s-6);
+    flex-wrap: nowrap;
+    border-top: 1px solid var(--rule);
+    border-left: 1px solid var(--ink);
+    padding: var(--s-5);
+  }
+  .sf-readouts {
+    grid-template-columns: 1fr 1fr;
+    gap: var(--s-5) var(--s-4);
+  }
+  .sf-burst {
+    width: 100%;
+    min-width: 0;
+  }
+  .sf-caption {
+    grid-column: 1 / -1;
+  }
+}
+
+@media (max-width: 719px) {
+  .sf-console {
+    padding: var(--s-4);
+  }
+  .sf-readouts {
+    grid-template-columns: repeat(2, 1fr);
+    gap: var(--s-4) var(--s-5);
+    width: 100%;
+  }
+  .sf-burst {
+    width: 100%;
+  }
+  .sf-caption {
+    grid-template-columns: 1fr;
+    gap: var(--s-1);
+  }
+}

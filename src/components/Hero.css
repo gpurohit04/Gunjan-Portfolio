@@ -1,202 +1,197 @@
 .hero {
-  min-height: 100vh;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  position: relative;
-  overflow: hidden;
-  padding: var(--space-5xl) var(--space-xl);
+  padding-top: clamp(40px, 5vw, 72px);
+  padding-bottom: var(--section-y);
 }
 
-.hero__content {
-  max-width: 800px;
-  text-align: center;
-  position: relative;
-  z-index: 1;
+.hero__head {
+  row-gap: var(--s-7);
+  align-items: end;
+  margin-bottom: clamp(32px, 4vw, 56px);
 }
 
-/* Floating animated orbs */
-.hero__orb {
-  position: absolute;
-  border-radius: 50%;
-  filter: blur(100px);
-  opacity: 0.18;
-  pointer-events: none;
+.hero__intro {
+  grid-column: 1 / span 8;
 }
 
-.hero__orb--1 {
-  width: 500px;
-  height: 500px;
-  background: var(--accent);
-  top: -10%;
-  left: -10%;
-  animation: float1 12s ease-in-out infinite;
+/* Name block: shrink-wraps the name so the dimension line matches its width exactly */
+.hero__nameblock {
+  display: inline-grid;
+  max-width: 100%;
 }
 
-.hero__orb--2 {
-  width: 400px;
-  height: 400px;
-  background: var(--accent-secondary);
-  bottom: -5%;
-  right: -8%;
-  animation: float2 15s ease-in-out infinite;
-}
-
-.hero__orb--3 {
-  width: 300px;
-  height: 300px;
-  background: #fd79a8;
-  top: 30%;
-  right: 15%;
-  animation: float3 10s ease-in-out infinite;
-}
-
-@keyframes float1 {
-  0%, 100% { transform: translate(0, 0) scale(1); }
-  33% { transform: translate(60px, 40px) scale(1.05); }
-  66% { transform: translate(-30px, 60px) scale(0.95); }
-}
-
-@keyframes float2 {
-  0%, 100% { transform: translate(0, 0) scale(1); }
-  50% { transform: translate(-50px, -30px) scale(1.08); }
-}
-
-@keyframes float3 {
-  0%, 100% { transform: translate(0, 0) scale(1); }
-  50% { transform: translate(40px, -50px) scale(1.1); }
-}
-
-/* ===== WIREFRAME TERRAIN ===== */
-.hero__terrain-canvas {
-  position: absolute;
-  inset: 0;
-  pointer-events: none;
-  z-index: 0;
-  opacity: 0.85;
-}
-
-.hero__badge {
-  display: inline-flex;
-  align-items: center;
-  gap: var(--space-sm);
-  padding: 0.5rem 1.2rem;
-  background: var(--bg-glass);
-  border: 1px solid var(--border-glass);
-  border-radius: var(--radius-full);
-  font-size: var(--fs-sm);
-  font-weight: 500;
-  color: var(--accent-light);
-  margin-bottom: var(--space-2xl);
-}
-
-.hero__badge-dot {
-  width: 8px;
-  height: 8px;
-  background: #00b894;
-  border-radius: 50%;
-  animation: pulse 2s ease-in-out infinite;
-}
-
-@keyframes pulse {
-  0%, 100% { opacity: 1; box-shadow: 0 0 0 0 rgba(0, 184, 148, 0.4); }
-  50% { opacity: 0.8; box-shadow: 0 0 0 8px rgba(0, 184, 148, 0); }
-}
-
-.hero__title {
-  font-size: clamp(var(--fs-4xl), 6vw, var(--fs-7xl));
-  font-weight: 800;
-  line-height: 1.1;
-  letter-spacing: -2px;
-  margin-bottom: var(--space-lg);
-}
-
-.hero__role {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: var(--space-sm);
-  flex-wrap: wrap;
-  margin-bottom: var(--space-xl);
-}
-
-.hero__role-item {
-  font-size: var(--fs-lg);
+.hero__name {
+  font-size: clamp(3rem, 1.4rem + 6.2vw, 7rem);
   font-weight: 600;
-  color: var(--accent-light);
-  background: rgba(108, 92, 231, 0.08);
-  padding: 0.3rem 0.8rem;
-  border-radius: var(--radius-full);
-  border: 1px solid rgba(108, 92, 231, 0.15);
+  letter-spacing: -0.04em;
+  line-height: 0.92;
+  margin-left: -0.045em; /* optical alignment of the cap G with the grid */
 }
 
-.hero__role-divider {
-  color: var(--text-muted);
-  font-size: var(--fs-xl);
+.hero__word {
+  display: inline-block;
+  white-space: nowrap;
 }
 
-.hero__subtitle {
-  font-size: var(--fs-lg);
-  color: var(--text-secondary);
-  line-height: 1.7;
-  max-width: 580px;
-  margin: 0 auto var(--space-2xl);
+.hero__char {
+  display: inline-block;
+  animation: hero-rise 640ms var(--ease-out) both;
+  animation-delay: calc(var(--i) * 28ms + 80ms);
+}
+
+/* The "part I own" marker from the diagrams, closing the name like a full stop */
+.hero__mark {
+  display: inline-block;
+  width: 0.15em;
+  height: 0.15em;
+  margin-left: 0.06em;
+  background: var(--signal);
+  animation: hero-pop 300ms var(--ease-out) 520ms both;
+}
+
+/* Dimension line: |—— LABEL ——| spanning the name */
+.hero__dim {
+  display: flex;
+  align-items: center;
+  gap: var(--s-3);
+  margin-top: var(--s-4);
+}
+
+.hero__dim-line {
+  position: relative;
+  flex: 1;
+  height: 1px;
+  min-width: 16px;
+  background: var(--ink-3);
+  transform-origin: center;
+  animation: hero-draw 600ms var(--ease-out) 420ms both;
+}
+
+.hero__dim-line:first-child {
+  transform-origin: left;
+}
+
+.hero__dim-line:last-child {
+  transform-origin: right;
+}
+
+/* end ticks */
+.hero__dim-line:first-child::before,
+.hero__dim-line:last-child::after {
+  content: '';
+  position: absolute;
+  top: -5px;
+  width: 1px;
+  height: 11px;
+  background: var(--ink-3);
+}
+
+.hero__dim-line:first-child::before {
+  left: 0;
+}
+
+.hero__dim-line:last-child::after {
+  right: 0;
+}
+
+.hero__dim-label {
+  white-space: nowrap;
+  color: var(--ink-2);
+  animation: hero-fade 400ms ease 700ms both;
+}
+
+@keyframes hero-rise {
+  from {
+    opacity: 0;
+    transform: translateY(0.28em);
+  }
+}
+
+@keyframes hero-pop {
+  from {
+    opacity: 0;
+    transform: scale(0);
+  }
+}
+
+@keyframes hero-draw {
+  from {
+    transform: scaleX(0);
+  }
+}
+
+@keyframes hero-fade {
+  from {
+    opacity: 0;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .hero__char,
+  .hero__mark,
+  .hero__dim-line,
+  .hero__dim-label {
+    animation: none;
+  }
+}
+
+@media (max-width: 479px) {
+  .hero__dim-label {
+    white-space: normal;
+    text-align: center;
+  }
+}
+
+.hero__lead {
+  margin-top: var(--s-5);
+  max-width: 34ch;
 }
 
 .hero__actions {
   display: flex;
-  gap: var(--space-md);
-  justify-content: center;
   flex-wrap: wrap;
+  gap: var(--s-3);
+  margin-top: var(--s-6);
 }
 
-/* Glowing button effect */
-.btn-glow {
-  position: relative;
+.hero__meta {
+  grid-column: 9 / span 4;
+  display: grid;
+  gap: var(--s-4);
+  padding-top: var(--s-4);
+  border-top: 1px solid var(--ink);
+  font-size: var(--t-small);
+  line-height: 1.45;
 }
 
-.btn-glow::before {
-  content: '';
-  position: absolute;
-  inset: -2px;
-  border-radius: inherit;
-  background: var(--gradient-hero);
-  z-index: -1;
-  opacity: 0;
-  filter: blur(12px);
-  transition: opacity var(--transition-base);
+.hero__meta dt {
+  margin-bottom: 2px;
 }
 
-.btn-glow:hover::before {
-  opacity: 0.6;
+.hero__meta dd {
+  margin: 0;
+  color: var(--ink);
 }
 
-.hero__scroll-indicator {
-  position: absolute;
-  bottom: var(--space-2xl);
-  left: 50%;
-  transform: translateX(-50%);
-}
-
-.hero__scroll-line {
-  width: 1px;
-  height: 60px;
-  background: linear-gradient(to bottom, var(--accent), transparent);
-  animation: scrollLine 2s ease-in-out infinite;
-}
-
-@keyframes scrollLine {
-  0% { opacity: 0; transform: scaleY(0); transform-origin: top; }
-  50% { opacity: 1; transform: scaleY(1); transform-origin: top; }
-  100% { opacity: 0; transform: scaleY(1); transform-origin: bottom; }
-}
-
-@media (max-width: 768px) {
-  .hero__title {
-    letter-spacing: -1px;
+@media (max-width: 899px) {
+  .hero__intro,
+  .hero__meta {
+    grid-column: 1 / -1;
   }
+  .hero__meta {
+    grid-template-columns: 1fr 1fr;
+    column-gap: var(--s-5);
+  }
+  .hero__meta > :first-child {
+    grid-column: 1 / -1;
+  }
+}
 
-  .hero__role-item {
-    font-size: var(--fs-sm);
+/* Desktop: a vertical rule instead of a top rule, so it can't near-miss the dimension line */
+@media (min-width: 900px) {
+  .hero__meta {
+    border-top: 0;
+    padding-top: 0;
+    padding-left: var(--s-5);
+    border-left: 1px solid var(--ink);
   }
 }

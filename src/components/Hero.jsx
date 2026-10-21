@@ -1,86 +1,75 @@
-import { motion } from 'framer-motion';
-import { ArrowDown, FileText } from 'lucide-react';
-import WireframeTerrain from './WireframeTerrain';
+import { Fragment } from 'react';
+import { person } from '../content';
+import SystemFigure from './SystemFigure';
 import './Hero.css';
+
+// Letters as spans so they can rise in one after another; words stay unbreakable.
+function splitName(name) {
+  let i = 0;
+  return name.split(' ').map((word, w) => (
+    <Fragment key={word}>
+      {w > 0 && ' '}
+      <span className="hero__word">
+        {[...word].map((ch) => (
+          <span key={i} className="hero__char" style={{ '--i': i++ }}>
+            {ch}
+          </span>
+        ))}
+      </span>
+    </Fragment>
+  ));
+}
 
 export default function Hero() {
   return (
-    <section className="hero" id="hero">
-      {/* Animated background orbs */}
-      <div className="hero__orb hero__orb--1" />
-      <div className="hero__orb hero__orb--2" />
-      <div className="hero__orb hero__orb--3" />
-
-      {/* 3D Wireframe Terrain */}
-      <WireframeTerrain />
-
-      <div className="hero__content">
-        <motion.div
-          className="hero__badge"
-          initial={{ opacity: 0, scale: 0.8 }}
-          animate={{ opacity: 1, scale: 1 }}
-          transition={{ duration: 0.5, type: 'spring', stiffness: 200 }}
-        >
-          <span className="hero__badge-dot" />
-          Available for Summer 2026 Internship
-        </motion.div>
-
-        <motion.h1
-          className="hero__title"
-          initial={{ opacity: 0, y: 40 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8, delay: 0.15, ease: [0.16, 1, 0.3, 1] }}
-        >
-          Hi, I'm <span className="gradient-text">Gunjan Purohit</span>
-        </motion.h1>
-
-        <motion.p
-          className="hero__role"
-          initial={{ opacity: 0, y: 30 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.7, delay: 0.3 }}
-        >
-          <span className="hero__role-item">DevOps Automation</span>
-          <span className="hero__role-divider">·</span>
-          <span className="hero__role-item">Site Reliability</span>
-          <span className="hero__role-divider">·</span>
-          <span className="hero__role-item">Cloud Engineering</span>
-        </motion.p>
-
-        <motion.p
-          className="hero__subtitle"
-          initial={{ opacity: 0, y: 30 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.7, delay: 0.45 }}
-        >
-          M.S. Software Engineering @ Arizona State University.
-          Building scalable cloud infrastructure and automating everything in between.
-        </motion.p>
-
-        <motion.div
-          className="hero__actions"
-          initial={{ opacity: 0, y: 30 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.7, delay: 0.6 }}
-        >
-          <a href="/resume.pdf" download="Gunjan_Purohit_Resume.pdf" className="btn btn-primary btn-glow">
-            <FileText size={18} />
-            Download Resume
-          </a>
-          <a href="#projects" className="btn btn-secondary">
-            View Projects
-            <ArrowDown size={16} />
-          </a>
-        </motion.div>
-
-        <motion.div
-          className="hero__scroll-indicator"
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ duration: 1, delay: 1.2 }}
-        >
-          <div className="hero__scroll-line" />
-        </motion.div>
+    <section className="hero" id="top" aria-labelledby="hero-name">
+      <div className="wrap">
+        <div className="grid hero__head">
+          <div className="hero__intro">
+            {/* The name is drawn like a part on a technical drawing: dimensioned, and marked as mine */}
+            <div className="hero__nameblock">
+              <h1 className="hero__name" id="hero-name" aria-label={person.name}>
+                <span aria-hidden="true">
+                  {splitName(person.name)}
+                  <span className="hero__mark" />
+                </span>
+              </h1>
+              <p className="hero__dim">
+                <span className="hero__dim-line" aria-hidden="true" />
+                <span className="label hero__dim-label">{person.role}</span>
+                <span className="hero__dim-line" aria-hidden="true" />
+              </p>
+            </div>
+            <p className="lead hero__lead">
+              I build cloud systems that take a burst of traffic, scale to meet it, and tell someone when they can’t.
+            </p>
+            <div className="hero__actions">
+              <a className="btn btn--ink" href="#work">
+                Projects ↓
+              </a>
+              <a className="btn" href={person.resume} download="Gunjan_Purohit_Resume.pdf">
+                Résumé, PDF
+              </a>
+            </div>
+          </div>
+          <dl className="hero__meta">
+            <div>
+              <dt className="label">Now</dt>
+              <dd>
+                {person.school}, graduating {person.graduation}
+              </dd>
+            </div>
+            <div>
+              <dt className="label">Available</dt>
+              <dd>{person.availability}</dd>
+            </div>
+            <div>
+              <dt className="label">Based in</dt>
+              <dd>{person.location}</dd>
+            </div>
+          </dl>
+        </div>
+        <SystemFigure />
       </div>
     </section>
   );
